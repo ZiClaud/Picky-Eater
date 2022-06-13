@@ -2,7 +2,6 @@
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
 //
-
 package pickyeater.builders;
 
 import pickyeater.basics.food.Meal;
@@ -22,6 +21,10 @@ public class PickyDailyMealPlanBuilder implements DailyMealPlanBuilder {
         this.meals.add(meal);
     }
 
+    public void removeMeal(int index) {
+        meals.remove(index);
+    }
+
     public List<Meal> getMeals() {
         return Collections.unmodifiableList(this.meals);
     }
@@ -32,14 +35,11 @@ public class PickyDailyMealPlanBuilder implements DailyMealPlanBuilder {
         } else {
             List<Meal> newList = new ArrayList<>(mealNumber);
             newList.addAll(this.meals);
-
-            for(int i = this.meals.size(); i < mealNumber; ++i) {
+            for (int i = this.meals.size(); i < mealNumber; ++i) {
                 newList.set(i, null);
             }
-
             this.meals = newList;
         }
-
     }
 
     public DailyMealPlan build() {

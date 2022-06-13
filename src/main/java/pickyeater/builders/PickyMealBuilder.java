@@ -2,32 +2,24 @@
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
 //
-
 package pickyeater.builders;
 
-import pickyeater.basics.food.*;
+import pickyeater.basics.food.Ingredient;
+import pickyeater.basics.food.Meal;
+import pickyeater.basics.food.PickyMeal;
 
 import java.util.*;
 
 public class PickyMealBuilder implements MealBuilder {
-    private List<String> tags = new ArrayList<>();
     private Set<Ingredient> ingredients = new HashSet<>();
     private String name = null;
-    private Quantity quantity = new PickyQuantity(100.0);
 
     public PickyMealBuilder() {
     }
 
     public PickyMealBuilder(Meal meal) {
-        this.tags = new ArrayList<>(meal.getTags());
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setQuantity(Quantity quantity) {
-        this.quantity = quantity;
+        this.name = meal.getName();
+        this.ingredients = meal.getIngredients();
     }
 
     public void addIngredients(Ingredient... ingredients) {
@@ -35,10 +27,29 @@ public class PickyMealBuilder implements MealBuilder {
     }
 
     public Meal build() {
-        if (this.name == null | this.name == null | this.quantity == null) {
+        if (this.name == null) {
             throw new MissingFormatArgumentException("Missing arguments for IngredientBuilder!");
         } else {
-            return new PickyMeal(this.ingredients, this.name, this.quantity);
+            return new PickyMeal(this.ingredients, this.name);
         }
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public Set<Ingredient> getIngredients() {
+        return Collections.unmodifiableSet(ingredients);
+    }
+
+    @Override
+    public void remove(Ingredient selectedIngredient) {
+        ingredients.remove(selectedIngredient);
     }
 }

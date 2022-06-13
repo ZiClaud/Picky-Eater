@@ -5,19 +5,17 @@ import java.util.Objects;
 /**
  * @author Claudio Di Maio
  */
+public class PickyNutrients implements Nutrients {
+    private final float proteins;
+    private final float complexCarbs;
+    private final float simpleCarbs;
+    private final float fibers;
+    private final float saturatedFats;
+    private final float unSaturatedFats;
+    private final float transFats;
+    private final float alcohol;
 
-public class PickyNutrients implements Nutrients{
-    private double proteins;
-    private double complexCarbs;
-    private double simpleCarbs;
-    private double fibers;
-    private double saturatedFats;
-    private double unSaturatedFats;
-    private double transFats;
-    private double alcohol;
-
-    public PickyNutrients(double proteins, double complexCarbs, double simpleCarbs, double fibers,
-                          double saturatedFats, double unSaturatedFats, double transFats, double alcohol) {
+    public PickyNutrients(float proteins, float complexCarbs, float simpleCarbs, float fibers, float saturatedFats, float unSaturatedFats, float transFats, float alcohol) {
         this.proteins = proteins;
         this.complexCarbs = complexCarbs;
         this.simpleCarbs = simpleCarbs;
@@ -29,68 +27,8 @@ public class PickyNutrients implements Nutrients{
     }
 
     @Override
-    public double getProteins() {
-        return proteins;
-    }
-
-    @Override
-    public double getComplexCarbs() {
-        return complexCarbs;
-    }
-
-    @Override
-    public double getSimpleCarbs() {
-        return simpleCarbs;
-    }
-
-    @Override
-    public double getFibers() {
-        return fibers;
-    }
-
-    @Override
-    public double getSaturatedFats() {
-        return saturatedFats;
-    }
-
-    @Override
-    public double getUnSaturatedFats() {
-        return unSaturatedFats;
-    }
-
-    @Override
-    public double getTransFats() {
-        return transFats;
-    }
-
-    @Override
-    public double getAlcohol() {
-        return alcohol;
-    }
-
-    @Override
-    public double getCarbs() {
-        return getComplexCarbs() + getSimpleCarbs() + getFibers();
-    }
-
-    @Override
-    public double getFats() {
-        return getSaturatedFats() + getUnSaturatedFats() + getTransFats();
-    }
-
-    @Override
-    public double getCalories() {
-        NutrientType p = NutrientType.PROTEIN;
-        NutrientType c = NutrientType.CARBOHYDRATE;
-        NutrientType f = NutrientType.FAT;
-        NutrientType a = NutrientType.ALCOHOL;
-
-        return getProteins() * p.getCaloriesPerGram() + getCarbs() * c.getCaloriesPerGram() + getFats() * f.caloriesPerGram + getAlcohol() * a.caloriesPerGram;
-    }
-
-    @Override
-    public String toString() {
-        return "PickyNutrients{" + "proteins=" + proteins + ", complexCarbs=" + complexCarbs + ", simpleCarbs=" + simpleCarbs + ", fibers=" + fibers + ", saturatedFats=" + saturatedFats + ", unSaturatedFats=" + unSaturatedFats + ", transFats=" + transFats + ", alcohol=" + alcohol + '}';
+    public int hashCode() {
+        return Objects.hash(proteins, complexCarbs, simpleCarbs, fibers, saturatedFats, unSaturatedFats, transFats, alcohol);
     }
 
     @Override
@@ -101,10 +39,69 @@ public class PickyNutrients implements Nutrients{
             return false;
         PickyNutrients that = (PickyNutrients) o;
         return Double.compare(that.proteins, proteins) == 0 && Double.compare(that.complexCarbs, complexCarbs) == 0 && Double.compare(that.simpleCarbs, simpleCarbs) == 0 && Double.compare(that.fibers, fibers) == 0 && Double.compare(that.saturatedFats, saturatedFats) == 0 && Double.compare(that.unSaturatedFats, unSaturatedFats) == 0 && Double.compare(that.transFats, transFats) == 0 && Double.compare(that.alcohol, alcohol) == 0;
+    }    @Override
+    public float getProteins() {
+        return proteins;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(proteins, complexCarbs, simpleCarbs, fibers, saturatedFats, unSaturatedFats, transFats, alcohol);
+    public String toString() {
+        return "PickyNutrients{" + "proteins=" + proteins + ", complexCarbs=" + complexCarbs + ", simpleCarbs=" + simpleCarbs + ", fibers=" + fibers + ", saturatedFats=" + saturatedFats + ", unSaturatedFats=" + unSaturatedFats + ", transFats=" + transFats + ", alcohol=" + alcohol + '}';
+    }
+
+    @Override
+    public float getComplexCarbs() {
+        return complexCarbs;
+    }
+
+
+
+    @Override
+    public float getSimpleCarbs() {
+        return simpleCarbs;
+    }
+
+    @Override
+    public float getFibers() {
+        return fibers;
+    }
+
+    @Override
+    public float getSaturatedFats() {
+        return saturatedFats;
+    }
+
+    @Override
+    public float getUnSaturatedFats() {
+        return unSaturatedFats;
+    }
+
+    @Override
+    public float getTransFats() {
+        return transFats;
+    }
+
+    @Override
+    public float getAlcohol() {
+        return alcohol;
+    }
+
+    @Override
+    public float getCarbs() {
+        return complexCarbs + simpleCarbs + fibers;
+    }
+
+    @Override
+    public float getFats() {
+        return saturatedFats + unSaturatedFats + transFats;
+    }
+
+    @Override
+    public float getCalories() {
+        NutrientType p = NutrientType.PROTEIN;
+        NutrientType c = NutrientType.CARBOHYDRATE;
+        NutrientType f = NutrientType.FAT;
+        NutrientType a = NutrientType.ALCOHOL;
+        return getProteins() * p.getCaloriesPerGram() + getCarbs() * c.getCaloriesPerGram() + getFats() * f.caloriesPerGram + getAlcohol() * a.caloriesPerGram;
     }
 }
